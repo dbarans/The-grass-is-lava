@@ -1,6 +1,5 @@
 import pygame
 from fox import Fox
-from clock import Time
 from graph import plot
 
 
@@ -16,11 +15,11 @@ WINDOW = pygame.display.set_mode((HEIGHT, WIDTH))
 BLACK = (0, 0, 0)
 FPS = 60
 fox = Fox()
-time = Time()
 images = [(BACKGROUND, (0, 0)), (ROAD, (0, 0)), (BORDER, (0, 0))]
 clock = pygame.time.Clock()
 run = True
 steps = 0
+steps_list = []
 pygame.display.set_caption("The grass is lava")
 
 
@@ -49,9 +48,9 @@ while run:
     if fox.collide(BORDER_MASK):
         fox.start_position()
         fox.remember_steps()
+        steps_list.append(steps)
+        plot(steps_list)
         steps = 0
-        time.calculate_time()
-        plot(time.time_list)
 
 
 pygame.quit()
